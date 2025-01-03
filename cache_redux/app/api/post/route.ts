@@ -3,9 +3,7 @@
 import {GetPostsForPage} from "@/api/posts";
 
 export async function GET(request: any) {
-    console.log(request.query)
     const page = request.query || 0
-
 
     const posts = await GetPostsForPage(Number(page))
 

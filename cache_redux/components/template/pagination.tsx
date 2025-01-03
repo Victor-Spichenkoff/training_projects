@@ -4,26 +4,17 @@ import {startTransition, useEffect, useState, useTransition} from "react";
 import {Post} from "@/api/data";
 import {GetPostsForPage} from "@/api/posts";
 import {PostItem} from "@/components/ui/postItem";
-import {GetPostFromApi} from "@/api/calls";
+import {GetPostFromApi, GetPostFromApiOrThrow} from "@/queries/post";
 import {Loading} from "@/components/template/loading";
 import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
+import {ErrorHandler} from "@/utils/errorHandler";
+import {getPostsForPageOptions} from "@/queries/postQueryOptions";
 
 export const Pagination = () => {
     const [isLoading, startTransition] = useTransition()
     const [page, setPage] = useState(1)
     const [currentPosts, setCurrentPosts] = useState<Post[]>([])
-
-    // useEffect(() => {
-    //     startTransition(async () => {
-    //         const posts = await GetPostFromApi(page - 1)
-    //
-    //         if (!posts)
-    //             return
-    //
-    //         setCurrentPosts(posts)
-    //     })
-    // }, []);
 
 
     const getData = async () => {
@@ -37,18 +28,12 @@ export const Pagination = () => {
     }
 
 
-    //status se quiser usar pelo enum; status == "error"
-    const {isPending, isError, data, error, status} = useQuery({
-        queryKey: ['post', page],//parâmetro
-        queryFn: () => GetPostFromApi(page -1),
-        staleTime: 1_000 * 60,
-        refetchOnWindowFocus: false// não repetir ao trocar de aba
-    })
+    const {isPending, isError, data, error, status, refetch} = useQuery(getPostsForPageOptions(page))
+
 
     if (isPending) {
         return (
             <div>
-                <h1>Tanstack pending</h1>
                 <Loading/>
             </div>)
     }
@@ -57,14 +42,8 @@ export const Pagination = () => {
         return (
             <div>
                 <h1>Tanstack error</h1>
-                <div>{error.message}</div>
+                <div>{ErrorHandler(error)}</div>
             </div>)
-    }
-
-
-    if (isLoading) {
-        console.log('ooadninad')
-        return <Loading/>
     }
 
     return (

@@ -8,3 +8,11 @@ export const GetPostFromApi = async (page: number) => {
 
     return null
 }
+
+export const GetPostFromApiOrThrow = async (page: number) => {
+    const res = await axios(`/api/post?page=${page}`)
+    if(res.data)
+        return res.data as Post[]
+
+    throw "Sem dados"
+}
