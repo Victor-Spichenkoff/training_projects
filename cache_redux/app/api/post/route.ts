@@ -1,9 +1,11 @@
+"use server"
+
 //"/api/post"
 
 import {GetPostsForPage} from "@/api/posts";
 
 export async function GET(request: any) {
-    const page = request.query || 0
+    const page = Number(request.nextUrl.searchParams.get("page")) || 0
 
     const posts = await GetPostsForPage(Number(page))
 

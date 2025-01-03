@@ -1,6 +1,7 @@
 import {queryOptions} from "@tanstack/react-query";
 import {GetPostFromApiOrThrow} from "@/queries/post";
 import {getQueryClient} from "@/libs/Providers";
+import {Post} from "@/api/data";
 
 export const getPostsForPageOptions = (page: number) => {
     return queryOptions({
@@ -13,7 +14,7 @@ export const getPostsForPageOptions = (page: number) => {
             const postsCache = getQueryClient().getQueryData(['post', page])
 
             if (postsCache)
-                return postsCache
+                return postsCache as Post[]
         },
         initialDataUpdatedAt: Date.now() + 60 * 1000
     })
