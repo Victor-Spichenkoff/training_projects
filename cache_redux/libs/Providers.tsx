@@ -1,16 +1,19 @@
 'use client'
-import { QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import {QueryClientProvider} from '@tanstack/react-query'
+import {ReactQueryDevtools} from '@tanstack/react-query-devtools'
 import type * as React from 'react'
+import {Provider} from "react-redux";
 
-export default function Providers({ children }: { children: React.ReactNode }) {
+export default function Providers({children}: { children: React.ReactNode }) {
     const queryClient = getQueryClient()
 
     return (
-        <QueryClientProvider client={queryClient}>
-            {children}
-            <ReactQueryDevtools initialIsOpen={false}/>
-        </QueryClientProvider>
+        <Provider store={store}>
+            <QueryClientProvider client={queryClient}>
+                {children}
+                <ReactQueryDevtools initialIsOpen={false}/>
+            </QueryClientProvider>
+        </Provider>
     )
 }
 
@@ -20,6 +23,7 @@ import {
     defaultShouldDehydrateQuery,
     isServer,
 } from '@tanstack/react-query'
+import {store} from "@/store/store";
 
 function makeQueryClient() {
     return new QueryClient({

@@ -27,21 +27,20 @@ export const allPosts: Post[] = [
         id: 7,
         title: "post 7",
         description: "post 7",
-    },    {
-        id: 8,
-        title: "post 8",
-        description: "post 8",
-    },    {
-        id: 9,
-        title: "post 9",
-        description: "post 9",
-    },    {
-        id: 10,
-        title: "post 10",
-        description: "post 10",
     },
+
 ]
 
+
+export class PostGlobalData
+{
+    static useThisId = 11
+
+    public static GetIdForPost(){
+        PostGlobalData.useThisId += 1
+        return PostGlobalData.useThisId - 1
+    }
+}
 
 export interface Post {
     id: number
