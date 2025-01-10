@@ -1,0 +1,28 @@
+- Testar as mensagens de erro passsado no model
+
+- Post tem title como UNIQUE
+
+
+****************************
+USER
+
+- Senha deve ter 5 caracteres + 
+- User tem emial como UNIQUE
+- Update
+    - Criar email e senha
+    - Ver ele salva de forma livre
+    - Ver com email no formato errado
+
+
+
+- Relacionamentos n-n
+- Como tirar/colocar mais itens
+
+
+
+
+## TODO
+- Implementar todos os GET, exportar para o insomnia
+- Terminar de criar o CreateUser
+- Est� ficando bem grande a consulta curso, pega 2 vezes o CoursesUsers
+- Como apagar um curso/user relacionado a uum CouseUser
