@@ -18,11 +18,11 @@ public class UserController(IUserRepository ur, IMapper mapper) : Controller
     private readonly IUserRepository _ur = ur;
 
     [HttpGet]
-    [ProducesResponseType(typeof(ICollection<User>), 200)]
+    [ProducesResponseType(typeof(ICollection<FilterUserDto>), 200)]
     [ProducesResponseType(400)]
     public IActionResult GetAllUsers()
     {
-        var res = _ur.GetUsers();
+        var res = mapper.Map<List<FilterUserDto>>(_ur.GetUsers());
 
         if (res == null)
             return BadRequest();
@@ -30,6 +30,9 @@ public class UserController(IUserRepository ur, IMapper mapper) : Controller
         return Ok(res);
     }
 
+    
+    [HttpGet]
+    
 
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(ICollection<User>), 200)]

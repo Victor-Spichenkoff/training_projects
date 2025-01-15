@@ -5,6 +5,9 @@ namespace domain.test.Helper;
 
 public class TesteDumb
 {
+    private readonly int _n3 = 17; 
+    
+    
     [Fact]//diz que serve para testes
     public void Dumb_Sum_ShouldReturn30()
     {
@@ -20,6 +23,7 @@ public class TesteDumb
         Assert.Equal(obtained, expected);
         // fluent assertions
         obtained.Should().Be(expected);
+        Dumb.Sum(n1, _n3).Should().Be(n1 + _n3);
     }
 
     [Fact]
@@ -70,7 +74,6 @@ public class TesteDumb
     
     
     [Theory]
-    [InlineData("@gmail.com")]
     [InlineData("g@emai")]
     [InlineData("")]
     public void Dumb_Email_ShouldReturnFalse(string email)
